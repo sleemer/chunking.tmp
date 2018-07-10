@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace WordFrequencyCounter
+namespace WordFrequencyCounter.Core
 {
     /// <summary>
     /// An algorithm to calculate word frequency list for a file.
@@ -13,7 +13,7 @@ namespace WordFrequencyCounter
         /// <param name="filePath">Path to the file</param>
         /// <returns>Word frequency list as <see cref="IDictionary{string, int}"/></returns>
         /// <exception cref="ArgumentNullException">Thrown when the filePath is null</exception>
-        /// <exception cref="FileNotFouneException">Thrown when the file not found</exception>
+        /// <exception cref="FileNotFoundException">Thrown when the file not found</exception>
         /// <exception cref="InvalidOperationException">Thrown when the error ocurres during processing</exception>
         IDictionary<string, int> Process(string filePath);
     }

@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using WordFrequencyCounter.Core;
 
-namespace WordFrequencyCounter
+namespace WordFrequencyCounter.PerfTests
 {
-    public class SimpleWordFrequencyCounter : IWordFrequencyCounter
+    internal class SimpleWordFrequencyCounter : IWordFrequencyCounter
     {
         public IDictionary<string, int> Process(string filePath)
         {

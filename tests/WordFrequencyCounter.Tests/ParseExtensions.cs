@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using WordFrequencyCounter.ChunkProcessing;
+using WordFrequencyCounter.Core.ChunkProcessing;
 using Xunit;
 
 namespace WordFrequencyCounter.Tests
@@ -19,16 +19,13 @@ namespace WordFrequencyCounter.Tests
 
         public static ChunkResult ToChunkResult(this string input)
         {
-            var chunk = input.Split(' ');
-            return new ChunkResult(firstWord: chunk[0].ToLower(),
-                                   lastWord: chunk[2].ToLower(),
-                                   words: ToDictionary(chunk[1]));
-        }
+            return new ChunkResult(input.ToDictionary());
+        } 
 
         public static ChunkResult[] ToChunkResultArray(this string input)
         {
-            return input.Split(';')
-                        .Select(x => ToChunkResult(x))
+            return input.Split(' ')
+                        .Select(line => line.ToChunkResult())
                         .ToArray();
         }
     }

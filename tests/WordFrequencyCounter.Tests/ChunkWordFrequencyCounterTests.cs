@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Moq;
-using WordFrequencyCounter.ChunkProcessing;
+using WordFrequencyCounter.Core.ChunkProcessing;
 using Xunit;
 
 namespace WordFrequencyCounter.Tests
@@ -17,10 +17,10 @@ namespace WordFrequencyCounter.Tests
         {
             // arrange
             var expected       = expectedData.ToDictionary();
-            var splitter       = new MemoryMappedFileChunkSplitter();
+            var chunkReader    = new SimpleChunkFileReader();
             var chunkProcessor = new ChunkProcessor();
             var chunkMerger    = new ChunkResultMerger();
-            var wordCounter    = new ChunkWordFrequencyCounter(splitter, chunkProcessor, chunkMerger);
+            var wordCounter    = new ChunkWordFrequencyCounter(chunkReader, chunkProcessor, chunkMerger);
 
             // act
             var actual = wordCounter.Process(inputFile);
@@ -33,10 +33,10 @@ namespace WordFrequencyCounter.Tests
         public void ShouldThrow_WhenInputFileNotFound()
         {
             // arrange
-            var splitter       = new MemoryMappedFileChunkSplitter();
+            var chunkReader    = new SimpleChunkFileReader();
             var chunkProcessor = new ChunkProcessor();
             var chunkMerger    = new ChunkResultMerger();
-            var wordCounter    = new ChunkWordFrequencyCounter(splitter, chunkProcessor, chunkMerger);
+            var wordCounter    = new ChunkWordFrequencyCounter(chunkReader, chunkProcessor, chunkMerger);
             
             // act & assert
             Assert.Throws<FileNotFoundException>(() => wordCounter.Process("not.existed")); 
